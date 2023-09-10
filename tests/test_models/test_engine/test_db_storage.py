@@ -67,6 +67,18 @@ test_db_storage.py'])
             self.assertTrue(len(func[1].__doc__) >= 1,
                             "{:s} method needs a docstring".format(func[0]))
 
+    def test_db_storange_method_get(self):
+        """Test for get method"""
+        instance = State({"name": "test"})
+        models.storage.save()
+        self.assertIsInstance(models.storage.get(State, instance.id), State)
+
+    def test_db_storange_method_count(self):
+        """Test for count method"""
+        instance = State({"name": "test"})
+        models.storage.save()
+        self.assertTrue(type(models.storage.count(instance)) == int)
+
 
 class TestFileStorage(unittest.TestCase):
     """Test the FileStorage class"""
@@ -86,3 +98,11 @@ class TestFileStorage(unittest.TestCase):
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_save(self):
         """Test that save properly saves objects to file.json"""
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_db_storange_method_get(self):
+        """Test for get method"""
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_db_storange_method_count(self):
+        """Test fot count method"""
